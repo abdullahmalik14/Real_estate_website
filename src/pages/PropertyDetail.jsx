@@ -9,15 +9,13 @@ import {
   Calendar,
   Trees,
   Check,
-  X,
-  ChevronLeft,
-  ChevronRight,
   Phone,
   Mail,
   Ruler,
 } from 'lucide-react'
 import Breadcrumb from '../components/Breadcrumb'
 import PropertyCard from '../components/PropertyCard'
+import ImageLightbox from '../components/ImageLightbox'
 import NotFound from './NotFound'
 import { getPropertyById, properties } from '../data/properties'
 import { getAgentById } from '../data/agents'
@@ -35,18 +33,27 @@ export default function PropertyDetail() {
   if (!property) return <NotFound />
 
   const agent = getAgentById(property.agentId)
-  const gallery =
+  const gallery = (
     assetGallery(`properties.${property.id}`).length > 0
       ? assetGallery(`properties.${property.id}`)
-      : [asset(`properties.${property.id}`)]
+      : property.gallery?.length
+        ? property.gallery
+        : [asset(`properties.${property.id}`) || property.image]
+  ).filter(Boolean)
+
+  const openLightbox = (index) => {
+    setActive(index)
+    setLightbox(true)
+  }
+
+  const moveLightbox = (dir) =>
+    setActive((i) => (i + dir + gallery.length) % gallery.length)
+
   const related = properties
     .filter((p) => p.id !== property.id && p.type === property.type)
     .concat(properties.filter((p) => p.id !== property.id))
     .filter((v, i, a) => a.findIndex((x) => x.id === v.id) === i)
     .slice(0, 3)
-
-  const move = (dir) =>
-    setActive((i) => (i + dir + gallery.length) % gallery.length)
 
   const submit = (e) => {
     e.preventDefault()
@@ -104,29 +111,37 @@ export default function PropertyDetail() {
       {/* Gallery */}
       <section className="bg-cream py-10">
         <div className="container-luxe">
-          <div className="grid gap-4 lg:grid-cols-4 lg:grid-rows-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
             <button
-              onClick={() => setLightbox(true)}
-              className="group relative col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-auto"
+              type="button"
+              onClick={() => openLightbox(0)}
+              className="group relative col-span-2 aspect-[4/3] overflow-hidden rounded-2xl sm:row-span-2 lg:aspect-auto"
             >
               <img
                 src={gallery[0]}
                 alt={property.name}
+                loading="eager"
+                decoding="async"
                 className="h-full w-full object-cover transition-transform duration-[1.2s] ease-luxe group-hover:scale-105"
               />
+              <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-charcoal/50 to-transparent pb-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span className="rounded-full bg-cream/90 px-4 py-2 text-xs font-medium uppercase tracking-widest text-charcoal">
+                  View Gallery
+                </span>
+              </span>
             </button>
             {gallery.slice(1, 5).map((src, i) => (
               <button
-                key={i}
-                onClick={() => {
-                  setActive(i + 1)
-                  setLightbox(true)
-                }}
-                className="group relative hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block"
+                key={`${src}-${i}`}
+                type="button"
+                onClick={() => openLightbox(i + 1)}
+                className="group relative aspect-[4/3] overflow-hidden rounded-2xl"
               >
                 <img
                   src={src}
                   alt={`${property.name} view ${i + 2}`}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-[1.2s] ease-luxe group-hover:scale-105"
                 />
                 {i === 3 && gallery.length > 5 && (
@@ -357,62 +372,14 @@ export default function PropertyDetail() {
         </div>
       </section>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] grid place-items-center bg-charcoal/95 p-4"
-            onClick={() => setLightbox(false)}
-          >
-            <button
-              className="absolute right-6 top-6 text-cream/70 hover:text-gold"
-              onClick={() => setLightbox(false)}
-              aria-label="Close gallery"
-            >
-              <X size={30} />
-            </button>
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/70 hover:text-gold sm:left-8"
-              onClick={(e) => {
-                e.stopPropagation()
-                move(-1)
-              }}
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={40} />
-            </button>
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={active}
-                src={gallery[active]}
-                alt={`${property.name} view ${active + 1}`}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.4, ease: EASE }}
-                onClick={(e) => e.stopPropagation()}
-                className="max-h-[82vh] max-w-[90vw] rounded-xl object-contain"
-              />
-            </AnimatePresence>
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/70 hover:text-gold sm:right-8"
-              onClick={(e) => {
-                e.stopPropagation()
-                move(1)
-              }}
-              aria-label="Next image"
-            >
-              <ChevronRight size={40} />
-            </button>
-            <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm uppercase tracking-widest text-cream/60">
-              {active + 1} / {gallery.length}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ImageLightbox
+        open={lightbox}
+        images={gallery}
+        active={active}
+        title={property.name}
+        onClose={() => setLightbox(false)}
+        onChange={moveLightbox}
+      />
     </>
   )
 }

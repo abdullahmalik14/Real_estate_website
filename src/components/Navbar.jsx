@@ -14,10 +14,31 @@ const links = [
   { to: '/contact', label: 'Contact' },
 ]
 
+// Routes with a full-bleed dark hero behind the navbar at scroll top.
+const HERO_ROUTES = new Set([
+  '/',
+  '/properties',
+  '/about',
+  '/agents',
+  '/services',
+  '/blog',
+  '/contact',
+])
+
+function hasHeroHeader(pathname) {
+  if (HERO_ROUTES.has(pathname)) return true
+  if (/^\/blog\/[^/]+$/.test(pathname)) return true
+  if (/^\/agents\/[^/]+$/.test(pathname)) return true
+  return false
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+
+  const heroPage = hasHeroHeader(location.pathname)
+  const solid = scrolled || open || !heroPage
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -37,8 +58,6 @@ export default function Navbar() {
     }
   }, [open])
 
-  const solid = scrolled || open
-
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -46,7 +65,7 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: EASE }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-luxe ${
         solid
-          ? 'bg-charcoal/90 py-4 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)] backdrop-blur-md'
+          ? 'bg-charcoal/95 py-4 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)] backdrop-blur-md'
           : 'bg-transparent py-7'
       }`}
     >
