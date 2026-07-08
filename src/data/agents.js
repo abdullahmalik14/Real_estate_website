@@ -1,0 +1,96 @@
+// Mock agent data for Aurelia Estates
+
+export const agents = [
+  {
+    id: 'sophia-laurent',
+    name: 'Sophia Laurent',
+    title: 'Founding Partner',
+    specialty: 'Architectural & Coastal Estates',
+    location: 'Los Angeles, California',
+    phone: '+1 (310) 555-0142',
+    email: 'sophia@aureliaestates.com',
+    experience: 18,
+    sales: '$1.4B+',
+    photo:
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+    bio: 'Sophia founded Aurelia Estates on a simple belief: that a home should be as extraordinary as the life lived within it. Over eighteen years she has represented some of the most significant architectural properties on the West Coast, earning a reputation for discretion, taste, and an uncanny ability to match a client with a home that feels inevitable.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+  {
+    id: 'julian-marsh',
+    name: 'Julian Marsh',
+    title: 'Senior Partner',
+    specialty: 'Urban Penthouses & Investment',
+    location: 'New York, New York',
+    phone: '+1 (212) 555-0199',
+    email: 'julian@aureliaestates.com',
+    experience: 14,
+    sales: '$980M+',
+    photo:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+    bio: 'Julian brings a financier\u2019s rigor to the art of the deal. With a background in private equity, he advises collectors and investors on trophy assets across Manhattan and beyond, blending market intelligence with an intuitive eye for design.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+  {
+    id: 'elena-rossi',
+    name: 'Elena Rossi',
+    title: 'International Director',
+    specialty: 'European Villas & Vineyards',
+    location: 'Lake Como, Italy',
+    phone: '+39 031 555 0170',
+    email: 'elena@aureliaestates.com',
+    experience: 21,
+    sales: '\u20AC1.1B+',
+    photo:
+      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80',
+    bio: 'Based between Milan and Lake Como, Elena curates a portfolio of Europe\u2019s most storied estates. Fluent in four languages and endlessly connected, she guides international buyers through the nuance of acquiring heritage property abroad.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+  {
+    id: 'marcus-hale',
+    name: 'Marcus Hale',
+    title: 'Partner',
+    specialty: 'Mountain & Desert Retreats',
+    location: 'Aspen, Colorado',
+    phone: '+1 (970) 555-0128',
+    email: 'marcus@aureliaestates.com',
+    experience: 12,
+    sales: '$620M+',
+    photo:
+      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+    bio: 'A former architect, Marcus specializes in the resort markets of the American West. He reads a floor plan the way others read a novel and has a devoted following among clients seeking design-forward mountain and desert homes.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+  {
+    id: 'amara-okafor',
+    name: 'Amara Okafor',
+    title: 'Associate Partner',
+    specialty: 'New Development & Design',
+    location: 'Miami, Florida',
+    phone: '+1 (305) 555-0163',
+    email: 'amara@aureliaestates.com',
+    experience: 9,
+    sales: '$410M+',
+    photo:
+      'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=800&q=80',
+    bio: 'Amara leads Aurelia\u2019s new-development advisory, partnering with the world\u2019s foremost architects and developers to bring branded residences to market. Her clients value her sharp design sensibility and calm, considered counsel.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+  {
+    id: 'daniel-reyes',
+    name: 'Daniel Reyes',
+    title: 'Partner',
+    specialty: 'Waterfront & Yachting Estates',
+    location: 'Sydney, Australia',
+    phone: '+61 2 5550 0184',
+    email: 'daniel@aureliaestates.com',
+    experience: 16,
+    sales: 'A$870M+',
+    photo:
+      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80',
+    bio: 'Daniel is the name behind many of the Southern Hemisphere\u2019s landmark waterfront sales. A lifelong sailor, he understands the lifestyle his clients seek and represents homes where the water is the front garden.',
+    social: { instagram: '#', linkedin: '#', twitter: '#' },
+  },
+]
+
+export const getAgentById = (id) => agents.find((a) => a.id === id)
