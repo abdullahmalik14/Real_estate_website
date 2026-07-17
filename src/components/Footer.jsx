@@ -13,10 +13,10 @@ import {
 } from 'lucide-react'
 
 const socials = [
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/aureliaestates/', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/aureliaestates/', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/aureliaestates', label: 'Twitter' },
+  { icon: Facebook, href: 'https://www.facebook.com/aureliaestates/', label: 'Facebook' },
 ]
 
 export default function Footer() {
