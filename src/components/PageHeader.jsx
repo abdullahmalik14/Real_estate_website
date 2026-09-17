@@ -14,6 +14,7 @@ export default function PageHeader({
 }) {
   const src = imageKey ? asset(imageKey) : image
 
+  
   return (
     <header className="relative flex min-h-[62vh] items-end overflow-hidden">
       <motion.img

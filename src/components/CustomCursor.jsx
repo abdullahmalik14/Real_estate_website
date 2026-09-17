@@ -7,6 +7,7 @@ export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false)
   const [hovering, setHovering] = useState(false)
 
+  
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
   const springConfig = { damping: 28, stiffness: 400, mass: 0.4 }

@@ -12,12 +12,14 @@ import {
   Mail,
 } from 'lucide-react'
 
+
 const socials = [
   { icon: Instagram, href: 'https://www.instagram.com/aureliaestates/', label: 'Instagram' },
   { icon: Linkedin, href: 'https://www.linkedin.com/company/aureliaestates/', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://x.com/aureliaestates', label: 'Twitter' },
   { icon: Facebook, href: 'https://www.facebook.com/aureliaestates/', label: 'Facebook' },
 ]
+
 
 export default function Footer() {
   const [email, setEmail] = useState('')

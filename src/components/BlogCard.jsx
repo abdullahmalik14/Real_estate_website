@@ -17,6 +17,7 @@ export default function BlogCard({ post, dark = false }) {
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-[1.2s] ease-luxe group-hover:scale-110"
           />
+          
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-widest text-charcoal">
             {post.category}
